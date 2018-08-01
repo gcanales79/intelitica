@@ -17,7 +17,7 @@ module.exports = function (app) {
     app.post("/call", function (request, response) {
         var CelaLlamar = request.body.celular;
         //console.log("El cel a llamar es " + CelaLlamar);
-        var url = "https://64351e22.ngrok.io/voice"
+        var url = "https://fff12617.ngrok.io/voice"
 
         var options = {
             to: CelaLlamar,
@@ -48,12 +48,12 @@ module.exports = function (app) {
         questionIndex = 0;
         //!Revisar se es la primer pregunta del celular
         if (questionIndex === 0) {
-            db.Result.create({
+            /*db.Result.create({
                 celular: celular,
                 preguntas_completas:0,
             }).then(function (dbResult) {
                 //response.json(dbResult)
-            });
+            });*/
         }
         if (questionIndex < questions.length) {
             const gather = twiml.gather({
@@ -113,7 +113,7 @@ module.exports = function (app) {
         var input = request.body.Digits;
         //!Acomoda la respuestas segun sea la pregunta
         if (questionIndex === 0) {
-            db.Result.update({
+            db.Example.update({
                 pregunta_1: input,
                 preguntas_completas:1,
 
@@ -128,7 +128,7 @@ module.exports = function (app) {
                 });
         }
         if (questionIndex === 1) {
-            db.Result.update({
+            db.Example.update({
                 pregunta_2: input,
                 preguntas_completas:2,
 
@@ -143,7 +143,7 @@ module.exports = function (app) {
                 });
         }
         if (questionIndex === 2) {
-            db.Result.update({
+            db.Example.update({
                 pregunta_3: input,
                 complete: true,
                 preguntas_completas:3,
