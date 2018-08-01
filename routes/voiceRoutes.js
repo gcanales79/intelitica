@@ -54,8 +54,8 @@ module.exports = function (app) {
     app.post('/voice', (request, response) => {
         // Use the Twilio Node.js SDK to build an XML response
         var twiml = new VoiceResponse();
-       // var celular = request.body.Called;
-        var SID=request.body.CallSid;
+        // var celular = request.body.Called;
+        var SID = request.body.CallSid;
         //questionIndex = 0;
         //!Revisar se es la primer pregunta del celular
         db.Example.findOne({
@@ -134,58 +134,92 @@ module.exports = function (app) {
             //response.json(results);
             questionIndex = results.preguntas_completas;
             console.log("El question Index de gather es: " + questionIndex);
+            const twiml = new VoiceResponse();
 
-            //!Acomoda la respuestas segun sea la pregunta
-            if (questionIndex === 0) {
-                db.Example.update({
-                    pregunta_1: input,
-                    preguntas_completas: 1,
-
-                }, {
-                        where: {
-                            callSid: SID,
-                            complete: false,
-                            preguntas_completas: 0,
-                        }
-                    }).then(function (dbExample) {
-                        // response.json(dbTodo);
-                    });
+            if (input) {
+                switch (input) {
+                    case '1':
+                        llenarBase();
+                        break;
+                    case '2':
+                        llenarBase();
+                        break;
+                    case "3":
+                        llenarBase();
+                        break;
+                    case "4":
+                        llenarBase();
+                        break;
+                    case "5":
+                        llenarBase();
+                        break;
+                    default:
+                        twiml.say("Sorry, that is not a valid answer");
+                        twiml.redirect('/survey');
+                        response.type('text/xml');
+                        response.send(twiml.toString());
+                        break;
+                }
+            } else {
+                // If no input was sent, redirect to the /voice route
+                twiml.redirect('/survey');
             }
-            if (questionIndex === 1) {
-                db.Example.update({
-                    pregunta_2: input,
-                    preguntas_completas: 2,
 
-                }, {
-                        where: {
-                            callSid: SID,
-                            complete: false,
-                            preguntas_completas: 1,
-                        }
-                    }).then(function (dbExample) {
-                        // response.json(dbTodo);
-                    });
-            }
-            if (questionIndex === 2) {
-                db.Example.update({
-                    pregunta_3: input,
-                    complete: true,
-                    preguntas_completas: 3,
+           
 
-                }, {
-                        where: {
-                            callSid: SID,
-                            complete: false,
-                            preguntas_completas: 2,
-                        }
-                    }).then(function (dbExample) {
-                        // response.json(dbTodo);
-                    });
-            }
-            //questionIndex++;
-            twiml.redirect('/survey');
-            response.type('text/xml');
-            response.send(twiml.toString());
+            function llenarBase() {
+                //!Acomoda la respuestas segun sea la pregunta
+                if (questionIndex === 0) {
+                    db.Example.update({
+                        pregunta_1: input,
+                        preguntas_completas: 1,
+
+                    }, {
+                            where: {
+                                callSid: SID,
+                                complete: false,
+                                preguntas_completas: 0,
+                            }
+                        }).then(function (dbExample) {
+                            // response.json(dbTodo);
+                        });
+                }
+                if (questionIndex === 1) {
+                    db.Example.update({
+                        pregunta_2: input,
+                        preguntas_completas: 2,
+
+                    }, {
+                            where: {
+                                callSid: SID,
+                                complete: false,
+                                preguntas_completas: 1,
+                            }
+                        }).then(function (dbExample) {
+                            // response.json(dbTodo);
+                        });
+                }
+                if (questionIndex === 2) {
+                    db.Example.update({
+                        pregunta_3: input,
+                        complete: true,
+                        preguntas_completas: 3,
+
+                    }, {
+                            where: {
+                                callSid: SID,
+                                complete: false,
+                                preguntas_completas: 2,
+                            }
+                        }).then(function (dbExample) {
+                            // response.json(dbTodo);
+                        });
+                }
+                //questionIndex++;
+                twiml.redirect('/survey');
+                response.type('text/xml');
+                response.send(twiml.toString());
+            };
 
             //console.log("El celular al que llame es gather " + celular);
             console.log("Las respuesta de la pregunta " + questionIndex + " es " + input);
