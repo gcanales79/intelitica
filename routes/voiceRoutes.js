@@ -34,6 +34,16 @@ module.exports = function (app) {
                 }
                 else {
                     console.log("Llama exitosa SID: " + call.sid)
+                    db.Example.create({
+                        cliente: request.body.cliente,
+                        local: request.body.local,
+                        fecha_visita: request.body.fecha_visita,
+                        celular: request.body.celular,
+                        preguntas_completas: 0,
+                        callSid: call.sid,
+                    }).then(function (dbResult) {
+                        //response.json(dbResult)
+                    });
                 }
             })
 
@@ -44,33 +54,35 @@ module.exports = function (app) {
     app.post('/voice', (request, response) => {
         // Use the Twilio Node.js SDK to build an XML response
         var twiml = new VoiceResponse();
-        var celular = request.body.Called;
-        questionIndex = 0;
+        // var celular = request.body.Called;
+        var SID = request.body.CallSid;
+        //questionIndex = 0;
         //!Revisar se es la primer pregunta del celular
-        if (questionIndex === 0) {
-            /*db.Result.create({
-                celular: celular,
-                preguntas_completas:0,
-            }).then(function (dbResult) {
-                //response.json(dbResult)
-            });*/
-        }
-        if (questionIndex < questions.length) {
-            const gather = twiml.gather({
-                numDigits: 1,
-                action: "/gather",
-            });
-            gather.say(questions[questionIndex]);
+        db.Example.findOne({
+            where: {
+                callSid: SID,
+            },
+        }).then(function (results) {
+            //response.json(results);
+            questionIndex = results.preguntas_completas;
+            console.log("El question Index de /voice es " + questionIndex);
+
+            if (questionIndex < questions.length) {
+                const gather = twiml.gather({
+                    numDigits: 1,
+                    action: "/gather",
+                });
+                gather.say(questions[questionIndex]);
 
 
-            // If the user doesn't enter input, loop
-            //twiml.redirect('/voice');
+                // If the user doesn't enter input, loop
+                //twiml.redirect('/voice');
 
-            // Render the response as XML in reply to the webhook request
-            response.type('text/xml');
-            response.send(twiml.toString());
-        };
-        console.log("El celular al que llame es " + celular);
+                // Render the response as XML in reply to the webhook request
+                response.type('text/xml');
+                response.send(twiml.toString());
+            };
+        });
 
     });
 
@@ -79,96 +91,142 @@ module.exports = function (app) {
         // Use the Twilio Node.js SDK to build an XML response
         var twiml = new VoiceResponse();
         var celular = request.body.Called;
-        
-        
-    
-        if (questionIndex < questions.length) {
-            const gather = twiml.gather({
-                numDigits: 1,
-                action: "/gather",
-            });
-            gather.say(questions[questionIndex]);
+        var SID = request.body.CallSid;
+        db.Example.findOne({
+            where: {
+                callSid: SID,
+            },
+        }).then(function (results) {
+            //response.json(results);
+            questionIndex = results.preguntas_completas;
+            console.log("Las preguntas completas son" + questionIndex);
+            if (questionIndex <= questions.length) {
+                const gather = twiml.gather({
+                    numDigits: 1,
+                    action: "/gather",
+                });
+                gather.say(questions[questionIndex]);
 
+                // If the user doesn't enter input, loop
+                //twiml.redirect('/voice');
 
-            // If the user doesn't enter input, loop
-            //twiml.redirect('/voice');
-
-            // Render the response as XML in reply to the webhook request
-            response.type('text/xml');
-            response.send(twiml.toString());
-        };
-        console.log("El celular al que llame es " + celular);
+                // Render the response as XML in reply to the webhook request
+                response.type('text/xml');
+                response.send(twiml.toString());
+            };
+            console.log("El celular al que llame es " + celular);
+            console.log("El SID es  " + SID);
+        });
 
     });
-
-
-
-
 
     // Create a route that will handle <Gather> input
     app.post('/gather', (request, response) => {
         // Use the Twilio Node.js SDK to build an XML response
         const twiml = new VoiceResponse();
-        var celular = request.body.Called;
+        var SID = request.body.CallSid;
         var input = request.body.Digits;
-        //!Acomoda la respuestas segun sea la pregunta
-        if (questionIndex === 0) {
-            db.Example.update({
-                pregunta_1: input,
-                preguntas_completas:1,
+        db.Example.findOne({
+            where: {
+                callSid: SID,
+            },
+        }).then(function (results) {
+            //response.json(results);
+            questionIndex = results.preguntas_completas;
+            console.log("El question Index de gather es: " + questionIndex);
+            const twiml = new VoiceResponse();
 
-            }, {
-                    where: {
-                        celular: celular,
-                        complete: false,
-                        preguntas_completas:0,
-                    }
-                }).then(function (dbTodo) {
-                   // response.json(dbTodo);
-                });
-        }
-        if (questionIndex === 1) {
-            db.Example.update({
-                pregunta_2: input,
-                preguntas_completas:2,
+            if (input) {
+                switch (input) {
+                    case '1':
+                        llenarBase();
+                        break;
+                    case '2':
+                        llenarBase();
+                        break;
+                    case "3":
+                        llenarBase();
+                        break;
+                    case "4":
+                        llenarBase();
+                        break;
+                    case "5":
+                        llenarBase();
+                        break;
+                    default:
+                        twiml.say("Sorry, that is not a valid answer");
+                        twiml.redirect('/survey');
+                        response.type('text/xml');
+                        response.send(twiml.toString());
+                        break;
+                }
+            } else {
+                // If no input was sent, redirect to the /voice route
+                twiml.redirect('/survey');
+            }
 
-            }, {
-                    where: {
-                        celular: celular,
-                        complete: false,
-                        preguntas_completas:1,
-                    }
-                }).then(function (dbTodo) {
-                   // response.json(dbTodo);
-                });
-        }
-        if (questionIndex === 2) {
-            db.Example.update({
-                pregunta_3: input,
-                complete: true,
-                preguntas_completas:3,
+           
 
-            }, {
-                    where: {
-                        celular: celular,
-                        complete: false,
-                        preguntas_completas:2,
-                    }
-                }).then(function (dbTodo) {
-                   // response.json(dbTodo);
-                });
-        }
-        questionIndex++;
-        twiml.redirect('/survey');
-        response.type('text/xml');
-        response.send(twiml.toString());
+            function llenarBase() {
+                //!Acomoda la respuestas segun sea la pregunta
+                if (questionIndex === 0) {
+                    db.Example.update({
+                        pregunta_1: input,
+                        preguntas_completas: 1,
 
-        console.log("El celular al que llame es gather " + celular);
-        console.log("Las respuesta de la pregunta " + questionIndex + " es " + input);
+                    }, {
+                            where: {
+                                callSid: SID,
+                                complete: false,
+                                preguntas_completas: 0,
+                            }
+                        }).then(function (dbExample) {
+                            // response.json(dbTodo);
+                        });
+                }
+                if (questionIndex === 1) {
+                    db.Example.update({
+                        pregunta_2: input,
+                        preguntas_completas: 2,
+
+                    }, {
+                            where: {
+                                callSid: SID,
+                                complete: false,
+                                preguntas_completas: 1,
+                            }
+                        }).then(function (dbExample) {
+                            // response.json(dbTodo);
+                        });
+                }
+                if (questionIndex === 2) {
+                    db.Example.update({
+                        pregunta_3: input,
+                        complete: true,
+                        preguntas_completas: 3,
+
+                    }, {
+                            where: {
+                                callSid: SID,
+                                complete: false,
+                                preguntas_completas: 2,
+                            }
+                        }).then(function (dbExample) {
+                            // response.json(dbTodo);
+                        });
+                }
+                //questionIndex++;
+                twiml.redirect('/survey');
+                response.type('text/xml');
+                response.send(twiml.toString());
+            };
+
+            //console.log("El celular al que llame es gather " + celular);
+            console.log("Las respuesta de la pregunta " + questionIndex + " es " + input);
 
 
+        });
     });
-
 
 
 }
