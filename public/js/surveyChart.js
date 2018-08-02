@@ -18,9 +18,9 @@ $.ajax({
     var massPopChart = new Chart(myChart, {
         type: "bar",
         data: {
-            labels: ["Question 1", "Question 2", "Question 3", ],
+            labels: ["Customer Service", "Product Quality", "Overall Experience", ],
             datasets: [{
-                label: "Survey Results",
+                label: "Overall Averages",
                 data: [
                     question1/response.length,
                     question2/response.length,
@@ -36,7 +36,7 @@ $.ajax({
         options: {
             title: {
                 display: true,
-                text: "Survey Results"
+                text: "Overall Averages"
             },
             legend: {
                 display: false,
