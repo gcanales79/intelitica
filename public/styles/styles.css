@@ -5,3 +5,9 @@
 #myChart {
   max-width: 500px;
 }
+
+#recomendacionChart {
+  max-width: 500px;
+  padding-top: 10px;
+  
+}
