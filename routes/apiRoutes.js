@@ -8,7 +8,7 @@ module.exports = function (app) {
     });
   });
 
-
+// el query para la pregunta 1 x día
   app.get("/api/pregunta1", function (req, res) {
     var mysql = require('mysql');
     var connection = mysql.createConnection({
@@ -20,6 +20,44 @@ module.exports = function (app) {
     });
     connection.connect();
     connection.query('SELECT AVG(pregunta_1) AS promedio_1,fecha_visita FROM Examples GROUP BY fecha_visita', function (error, results) {
+      if (error) throw error;
+      console.log('The solution is: ', results);
+      res.json(results);
+    });
+    connection.end();
+  });
+
+  // el query para la pregunta 2 x día
+  app.get("/api/pregunta2", function (req, res) {
+    var mysql = require('mysql');
+    var connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: 'root',
+      database: 'exampledb',
+      port: 8889
+    });
+    connection.connect();
+    connection.query('SELECT AVG(pregunta_2) AS promedio_2,fecha_visita FROM Examples GROUP BY fecha_visita', function (error, results) {
+      if (error) throw error;
+      console.log('The solution is: ', results);
+      res.json(results);
+    });
+    connection.end();
+  });
+
+  // el query para la pregunta 3 x día
+  app.get("/api/pregunta3", function (req, res) {
+    var mysql = require('mysql');
+    var connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: 'root',
+      database: 'exampledb',
+      port: 8889
+    });
+    connection.connect();
+    connection.query('SELECT AVG(pregunta_3) AS promedio_3,fecha_visita FROM Examples GROUP BY fecha_visita', function (error, results) {
       if (error) throw error;
       console.log('The solution is: ', results);
       res.json(results);

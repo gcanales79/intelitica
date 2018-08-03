@@ -7,7 +7,24 @@
 }
 
 #recomendacionChart {
-  max-width: 500px;
+  max-width: 400px;
+  padding-top: 10px;
+
+  
+}
+
+#productoChart {
+  max-width: 400px;
   padding-top: 10px;
   
+}
+
+#servicioChart {
+  max-width: 400px;
+  padding-top: 10px;
+  
+}
+
+.dashboard {
+  font-family: 'Courier New', Courier, monospace;
 }
