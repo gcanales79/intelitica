@@ -89,6 +89,7 @@ $.ajax({
             }]
         },
         options: {
+            
             title: {
                 display: true,
                 text: "Overall Averages"
