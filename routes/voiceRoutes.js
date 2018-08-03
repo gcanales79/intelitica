@@ -18,7 +18,7 @@ module.exports = function (app) {
         var CelaLlamar = request.body.celular;
         //console.log("El cel a llamar es " + CelaLlamar);
 
-        var url = "https://8891fd60.ngrok.io/voice"
+        var url = "https://blooming-retreat-17642.herokuapp.com/voice"
 
 
         var options = {
