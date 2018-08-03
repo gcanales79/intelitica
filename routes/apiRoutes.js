@@ -16,7 +16,7 @@ module.exports = function (app) {
       user: 'root',
       password: 'root',
       database: 'exampledb',
-      port: 8889
+      port: 3306
     });
     connection.connect();
     connection.query('SELECT AVG(pregunta_1) AS promedio_1,fecha_visita FROM Examples GROUP BY fecha_visita', function (error, results) {
@@ -35,7 +35,7 @@ module.exports = function (app) {
       user: 'root',
       password: 'root',
       database: 'exampledb',
-      port: 8889
+      port: 3306
     });
     connection.connect();
     connection.query('SELECT AVG(pregunta_2) AS promedio_2,fecha_visita FROM Examples GROUP BY fecha_visita', function (error, results) {
@@ -54,7 +54,7 @@ module.exports = function (app) {
       user: 'root',
       password: 'root',
       database: 'exampledb',
-      port: 8889
+      port: 3306
     });
     connection.connect();
     connection.query('SELECT AVG(pregunta_3) AS promedio_3,fecha_visita FROM Examples GROUP BY fecha_visita', function (error, results) {

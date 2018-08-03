@@ -3,7 +3,7 @@ var Sequelize = require("sequelize");
 // Creates mySQL connection using Sequelize
 var sequelize = new Sequelize("intelitica_db", "root", "root", {
   host: "localhost",
-  port: 8889,
+  port: 3306,
   dialect: "mysql",
   pool: {
     max: 5,

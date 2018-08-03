@@ -9,4 +9,9 @@ $("#Submit").on("click", function (event) {
 
     $.post("/call", newCliente)
         .then(newCliente)
+
+    $("#cliente").val("");
+    $("#local").val("");
+    $("fecha_visita").val("");
+    $("#celular").val("");
 })
