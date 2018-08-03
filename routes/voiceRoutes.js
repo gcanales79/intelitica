@@ -17,7 +17,7 @@ module.exports = function (app) {
     app.post("/call", function (request, response) {
         var CelaLlamar = request.body.celular;
         //console.log("El cel a llamar es " + CelaLlamar);
-        var url = "https://fff12617.ngrok.io/voice"
+        var url = "https://3aef4cd0.ngrok.io/voice"
 
         var options = {
             to: CelaLlamar,
@@ -40,9 +40,7 @@ module.exports = function (app) {
                         fecha_visita: request.body.fecha_visita,
                         celular: request.body.celular,
                         preguntas_completas: 0,
-                        pregunta_1: "ph",
-                        pregunta_2: "ph2",
-                        pregunta_3: "ph3"
+                       callSid:call.sid,
                     }).then(function (dbResult) {
                         response.json(dbResult)
                         console.log(dbResult)

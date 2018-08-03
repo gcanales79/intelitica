@@ -4,6 +4,7 @@ module.exports = function (sequelize, DataTypes) {
       local: DataTypes.STRING,
       fecha_visita: DataTypes.DATE,
       celular: DataTypes.STRING,
+      callSid: DataTypes.STRING,
       pregunta_1: DataTypes.STRING,
       pregunta_2: DataTypes.STRING,
       pregunta_3: DataTypes.STRING,
