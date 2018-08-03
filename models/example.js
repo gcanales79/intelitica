@@ -8,6 +8,7 @@ module.exports = function (sequelize, DataTypes) {
       pregunta_1: DataTypes.STRING,
       pregunta_2: DataTypes.STRING,
       pregunta_3: DataTypes.STRING,
+      pregunta_4:DataTypes.STRING,
       preguntas_completas: {
         type: DataTypes.INTEGER,
   

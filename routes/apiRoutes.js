@@ -21,7 +21,7 @@ module.exports = function (app) {
     connection.connect();
     connection.query('SELECT AVG(pregunta_1) AS promedio_1,fecha_visita FROM Examples GROUP BY fecha_visita', function (error, results) {
       if (error) throw error;
-      console.log('The solution is: ', results);
+      //console.log('The solution is: ', results);
       res.json(results);
     });
     connection.end();
