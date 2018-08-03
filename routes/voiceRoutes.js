@@ -7,8 +7,8 @@ var survey = require('../survey_data');
 var db = require("../models");
 
 var questions = ["From 1 being worst and 5 being excellent. How would you qualify the service given?",
-    "From 1 being worst and 5 being excellent. How would you qualify the foods and beverage?",
-    "From 1 being worst and 5 being excellent. How satisfy where you with the overall experience",
+    "How would you qualify the foods and beverage?",
+    "How satisfy where you with the overall experience", "Would you recommend us? 1 For Yes, 0 For No",
     "Thank you for your time"]
 
 var questionIndex;
@@ -42,7 +42,7 @@ module.exports = function (app) {
                         fecha_visita: request.body.fecha_visita,
                         celular: request.body.celular,
                         preguntas_completas: 0,
-                       callSid:call.sid,
+                        callSid: call.sid,
                     }).then(function (dbResult) {
                         response.json(dbResult)
                         console.log(dbResult)
@@ -75,7 +75,10 @@ module.exports = function (app) {
                     numDigits: 1,
                     action: "/gather",
                 });
-                gather.say(questions[questionIndex]);
+                gather.say({
+                    voice:"woman"
+                },questions[questionIndex]
+                    );
 
 
                 // If the user doesn't enter input, loop
@@ -103,22 +106,24 @@ module.exports = function (app) {
             //response.json(results);
             questionIndex = results.preguntas_completas;
             console.log("Las preguntas completas son" + questionIndex);
-            if (questionIndex <= questions.length) {
+            if (questionIndex < (questions.length)) {
                 const gather = twiml.gather({
                     numDigits: 1,
                     action: "/gather",
                 });
-                gather.say(questions[questionIndex]);
-
-                // If the user doesn't enter input, loop
-                //twiml.redirect('/voice');
+                gather.say({
+                    voice:"woman",
+                },questions[questionIndex]
+                    
+                );
 
                 // Render the response as XML in reply to the webhook request
                 response.type('text/xml');
                 response.send(twiml.toString());
             };
-            console.log("El celular al que llame es " + celular);
-            console.log("El SID es  " + SID);
+
+            //console.log("El celular al que llame es " + celular);
+            //console.log("El SID es  " + SID);
         });
 
     });
@@ -138,36 +143,74 @@ module.exports = function (app) {
             questionIndex = results.preguntas_completas;
             console.log("El question Index de gather es: " + questionIndex);
             const twiml = new VoiceResponse();
-
-            if (input) {
-                switch (input) {
-                    case '1':
-                        llenarBase();
-                        break;
-                    case '2':
-                        llenarBase();
-                        break;
-                    case "3":
-                        llenarBase();
-                        break;
-                    case "4":
-                        llenarBase();
-                        break;
-                    case "5":
-                        llenarBase();
-                        break;
-                    default:
-                        twiml.say("Sorry, that is not a valid answer");
-                        twiml.redirect('/survey');
-                        response.type('text/xml');
-                        response.send(twiml.toString());
-                        break;
-                }
-            } else {
-                // If no input was sent, redirect to the /voice route
-                twiml.redirect('/survey');
+            if (questionIndex != 3) {
+                revisarInput(input);
+            }
+            else {
+                revisarInputbooleano(input);
             }
 
+
+
+
+            function revisarInput(input) {
+                if (input) {
+                    switch (input) {
+                        case '1':
+                            llenarBase();
+                            break;
+                        case '2':
+                            llenarBase();
+                            break;
+                        case "3":
+                            llenarBase();
+                            break;
+                        case "4":
+                            llenarBase();
+                            break;
+                        case "5":
+                            llenarBase();
+                            break;
+                        default:
+                            twiml.say({
+                                voice:"woman",
+                            },"Sorry, that is not a valid answer");
+                            twiml.redirect('/survey');
+                            response.type('text/xml');
+                            response.send(twiml.toString());
+                            break;
+                    }
+                } else {
+                    // If no input was sent, redirect to the /voice route
+                    twiml.redirect('/survey');
+                }
+
+            }
+
+            function revisarInputbooleano(input) {
+                if (input) {
+                    switch (input) {
+                        case '1':
+                            llenarBase();
+                            break;
+                        case '0':
+                            llenarBase();
+                            break;
+                        default:
+                            twiml.say({
+                                voice:"woman",
+                            },"Sorry, that is not a valid answer");
+                            twiml.redirect('/survey');
+                            response.type('text/xml');
+                            response.send(twiml.toString());
+                            break;
+                    }
+                } else {
+                    // If no input was sent, redirect to the /voice route
+                    twiml.redirect('/survey');
+                }
+
+            }
 
 
             function llenarBase() {
@@ -205,7 +248,6 @@ module.exports = function (app) {
                 if (questionIndex === 2) {
                     db.Example.update({
                         pregunta_3: input,
-                        complete: true,
                         preguntas_completas: 3,
 
                     }, {
@@ -213,6 +255,22 @@ module.exports = function (app) {
                                 callSid: SID,
                                 complete: false,
                                 preguntas_completas: 2,
+                            }
+                        }).then(function (dbExample) {
+                            // response.json(dbTodo);
+                        });
+                }
+                if (questionIndex === 3) {
+                    db.Example.update({
+                        pregunta_4: input,
+                        complete: true,
+                        preguntas_completas: 4,
+
+                    }, {
+                            where: {
+                                callSid: SID,
+                                complete: false,
+                                preguntas_completas: 3,
                             }
                         }).then(function (dbExample) {
                             // response.json(dbTodo);
