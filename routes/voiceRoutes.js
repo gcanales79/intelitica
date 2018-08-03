@@ -17,7 +17,7 @@ module.exports = function (app) {
     app.post("/call", function (request, response) {
         var CelaLlamar = request.body.celular;
         //console.log("El cel a llamar es " + CelaLlamar);
-        var url = "https://fff12617.ngrok.io/voice"
+        var url = "https://8891fd60.ngrok.io/voice"
 
         var options = {
             to: CelaLlamar,
