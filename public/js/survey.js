@@ -7,9 +7,6 @@ $("#Submit").on("click", function (event) {
         celular: "+521" + $("#celular").val().trim(),
     }
 
-    $.post("/api/clients", newCliente)
+    $.post("/call", newCliente)
         .then(newCliente)
-
-    $.post("/call",newCliente)
-    .then(newCliente)
 })
