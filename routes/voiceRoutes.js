@@ -17,7 +17,9 @@ module.exports = function (app) {
     app.post("/call", function (request, response) {
         var CelaLlamar = request.body.celular;
         //console.log("El cel a llamar es " + CelaLlamar);
+
         var url = "https://8891fd60.ngrok.io/voice"
+
 
         var options = {
             to: CelaLlamar,
@@ -33,16 +35,17 @@ module.exports = function (app) {
                     console.log(err);
                 }
                 else {
-                    console.log("Llama exitosa SID: " + call.sid)
+                    console.log("Llamada exitosa SID: " + call.sid)
                     db.Example.create({
                         cliente: request.body.cliente,
                         local: request.body.local,
                         fecha_visita: request.body.fecha_visita,
                         celular: request.body.celular,
                         preguntas_completas: 0,
-                        callSid: call.sid,
+                       callSid:call.sid,
                     }).then(function (dbResult) {
-                        //response.json(dbResult)
+                        response.json(dbResult)
+                        console.log(dbResult)
                     });
                 }
             })
@@ -165,7 +168,7 @@ module.exports = function (app) {
                 twiml.redirect('/survey');
             }
 
-           
+
 
             function llenarBase() {
                 //!Acomoda la respuestas segun sea la pregunta

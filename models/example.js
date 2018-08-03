@@ -1,23 +1,25 @@
 module.exports = function (sequelize, DataTypes) {
-  var Example = sequelize.define("Example", {
-    cliente: DataTypes.STRING,
-    local: DataTypes.STRING,
-    fecha_visita: DataTypes.DATE,
-    celular: DataTypes.STRING,
-    callSid: DataTypes.STRING,
-    pregunta_1: DataTypes.STRING,
-    pregunta_2: DataTypes.STRING,
-    pregunta_3: DataTypes.STRING,
-    preguntas_completas: {
-      type: DataTypes.INTEGER,
+    var Example = sequelize.define("Example", {
+      cliente: DataTypes.STRING,
+      local: DataTypes.STRING,
+      fecha_visita: DataTypes.DATE,
+      celular: DataTypes.STRING,
+      callSid: DataTypes.STRING,
+      pregunta_1: DataTypes.STRING,
+      pregunta_2: DataTypes.STRING,
+      pregunta_3: DataTypes.STRING,
+      preguntas_completas: {
+        type: DataTypes.INTEGER,
+  
+      },
+      complete: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      }
+    });
 
-    },
-    complete: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-    }
-  });
-
-
-  return Example;
-};
+   
+  
+  
+    return Example;
+  };
