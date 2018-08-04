@@ -4,34 +4,42 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
   <link rel="stylesheet" href="/styles/styles.css" media="screen" title="no title" charset="utf-8">
   <title>Home Page</title>
 </head>
 
 <body>
-  <h1 id="dash">My Dashboard</h1>
-  <div class="dashboard">
+
+  <nav class="navbar navbar-light" style="background-color: #222222">
+  <a class="navbar-brand" href="#">
+    <img src="/images/logo.png" width="140" height="50" alt="">
+    <span id="dash">My Dashboard</span>
+  </a>
+</nav>
+  
+  <div class="dashboard bg">
     <form class="forma">
 
       <div class="form-group col-md-6">
         <label for="inputName">Name</label>
-        <input type="text" class="form-control" id="cliente" placeholder="Name">
+        <input type="text" class="form-control" autofocus="autofocus" id="cliente" >
       </div>
 
       <div class="form-group col-md-6">
         <label for="inputRestaurant">Restaurant</label>
-        <input type="text" class="form-control" id="local" placeholder="Password">
+        <input type="text" class="form-control" id="local">
       </div>
       <div class="form-group col-md-6">
         <label for="FechadeVisita">Fecha de Visita</label>
-        <input type="date" class="form-control" id="fecha_visita" placeholder="Password">
+        <input type="date" class="form-control" id="fecha_visita">
       </div>
 
       <div class="form-group col-md-6">
         <label for="inputTelefono">Telefono</label>
-        <input type="number" class="form-control" id="celular" placeholder="Telefono">
+        <input type="number" class="form-control" id="celular">
       </div>
-      <button type="submit" class="btn btn-primary" id="Submit">Submit</button>
+      <button type="submit" class="btn btn-primary" id="Submit">Make the Call</button>
     </form>
     <div class="container1">
       <canvas id="myChart"></canvas>
@@ -46,6 +54,7 @@
       <canvas id="servicioChart"></canvas>
     </div>
   </div>
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
 
   <script src="https://code.jquery.com/jquery.js"></script>
