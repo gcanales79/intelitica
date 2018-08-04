@@ -29,7 +29,12 @@ $.ajax({
                     label: "Quality of Service last 5 days",
                     data: arrayPregunta1Valores,
                     borderWidth: 4,
-                    backgroundColor: ["green", "blue", "red", "black", "pink"]
+                    backgroundColor: ['rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)']
 
                 }]
             },
@@ -73,7 +78,7 @@ $.ajax({
 
     }
     var massPopChart = new Chart(myChart, {
-        type: "bar",
+        type: "line",
         data: {
             labels: ["Customer Service", "Product Quality", "Overall Experience",],
             datasets: [{
@@ -84,7 +89,11 @@ $.ajax({
                     question3 / response.length
                 ],
                 borderWidth: 4,
-                backgroundColor: ["green", "blue", "red"]
+                fill: false,
+                borderColor: ['rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)']
 
             }]
         },
@@ -96,6 +105,7 @@ $.ajax({
             },
             legend: {
                 display: false,
+         
             },
             scales: {
                 yAxes: [{
@@ -135,7 +145,12 @@ $.ajax({
                     label: "Product Quality last 5 days",
                     data: arrayPregunta2Valores,
                     borderWidth: 4,
-                    backgroundColor: ["green", "blue", "red", "black", "pink"]
+                    backgroundColor: ['rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)']
 
                 }]
             },
@@ -188,7 +203,12 @@ $.ajax({
                 label: "Overall Experience last 5 days",
                 data: arrayPregunta3Valores,
                 borderWidth: 4,
-                backgroundColor: ["green", "blue", "red", "black", "pink"]
+                backgroundColor: ['rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)']
 
             }]
         },
