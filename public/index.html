@@ -8,41 +8,103 @@
     <title>Intelitica</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="./styles/stylesindex.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+    <link rel="stylesheet" href="styles/stylesindex.css">
 </head>
 
-<body>
-    <form>
-        <div id="prueba">HOLA </div>
+<body style="background: url(&quot;https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940&quot;)">
 
-        <div class="form-group col-md-6">
-            <label for="inputName">Name</label>
-            <input type="text" class="form-control" id="cliente" placeholder="Name">
+
+    <div class="jumbotron align-middle" style="background-color: rgb(34,34,34)">
+        <nav class="navbar navbar-light justify-content-end">
+            <button class="btn btn-outline-success" type="button" style="margin-right:10px" data-toggle="modal" id="sign_in">SIGN IN</button>
+            <button class="btn btn-outline-success" type="button" style="margin-right:10px" data-toggle="modal" id="sign_up">SIGN UP</button>
+        </nav>
+        <img src="./images/intelitica.png" class="rounded mx-auto d-block" alt="..." style="width:50%">
+        <hr class="my-4">
+        <div class="text-light row justify-content-center" id="slogan">
+            <h1>Intelitica is the smart way to survey your customers. </h1>
+            <p>Never again lose a customer because of low quality service or product. Discover what your customers are thinking
+                and fix the problems for good.</p>
         </div>
 
-        <div class="form-group col-md-6">
-            <label for="inputRestaurant">Restaurant</label>
-            <input type="text" class="form-control" id="local" placeholder="Password">
-        </div>
-        <div class="form-group col-md-6">
-            <label for="FechadeVisita">Fecha de Visita</label>
-            <input type="date" class="form-control" id="fecha_visita" placeholder="Password">
-        </div>
+    </div>
 
-        <div class="form-group col-md-6">
-            <label for="inputTelefono">Telefono</label>
-            <input type="number" class="form-control" id="celular" placeholder="Telefono">
-        </div>
-        <button type="submit" class="btn btn-primary" id="Submit">Submit</button>
-    </form>
+    <!--MODAL - SIGN IN-->
+    <div class="modal" tabindex="-1" role="dialog" id="signIn">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">SIGN IN</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="signin" name="signin" method="post" action="signin">
+                        <label for="email">Restaurant Email Address</label>
+                        <input class="text" name="email" type="text" placeholder="Enter email address" />
+                        <br>
+                        <label for="password">Password</label>
+                        <input name="password" type="password" placeholder="Enter password" />
+                        <br>
+                        <div class="row justify-content-end" style="margin-right:15px">
+                            <input class="btn btn-primary" type="submit" value="Sign In" />
+                        </div>
 
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--MODAL - SIGN IN - END -->
+
+    <!--MODAL - SIGN UP -->
+    <div class="modal" tabindex="-1" role="dialog" id="signUp">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">REGISTER</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="signup" name="signup" method="post" action="/signup">
+                        <label for="email">Restaurant Email Address</label>
+                        <input class="text" name="email" type="email" placeholder="Enter email address" />
+                        <br>
+                        <label for="password">Password</label>
+                        <input name="password" type="password" placeholder="Enter password" />
+                        <br>
+                        <div class="row justify-content-end" style="margin-right:15px">
+                            <input class="btn btn-primary" type="submit" value="Sign Up" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--MODAL - SIGN UP - END -->
 
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
-    <script src="js/survey.js"></script>
+    <script type="text/javascript">
+        $("#sign_in").on("click", function () {
+
+            $('#signIn').modal('show');
+
+        });
+        $("#sign_up").on("click", function () {
+
+            $('#signUp').modal('show');
+
+        });
+    </script>
 </body>
 
 </html>
