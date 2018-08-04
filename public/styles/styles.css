@@ -217,7 +217,66 @@ background-color: #e9ebee;
           'con2'
           'con3'
           'con4';
-
+        
+          
   }
+
+
+  .forma {
+    display: grid;
+    grid-area: forma;
+    padding:0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    margin: 0;
+    max-width: 300px;
+    
+  }
+  
+  .container1 {
+    display: grid;
+    grid-area: con1;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
+    align-items: center;
+    max-width: 300px;
+    margin-top:30px;
+
+  
+  }
+  
+  .container2 {
+    display: grid;
+    grid-area: con2;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
+    max-width: 300px;
+
+  
+  
+  
+  }
+  
+  .container3 {
+    display: grid;
+    grid-area: con3;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
+    max-width: 300px;
+
+  
+  
+  
+  }
+  
+  .container4 {
+    display: grid;
+    grid-area: con4;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
+    max-width: 300px;
+  }
+
+
 }
 
