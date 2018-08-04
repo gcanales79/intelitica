@@ -3,7 +3,6 @@ var authToken = process.env.TWILIO_AUTH_TOKEN;
 
 var VoiceResponse = require('twilio').twiml.VoiceResponse;
 var client = require("twilio")(accountSid, authToken);
-var survey = require('../survey_data');
 var db = require("../models");
 
 var questions = ["From 1 being worst and 5 being excellent. How would you qualify the service given?",
