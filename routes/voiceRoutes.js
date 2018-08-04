@@ -44,7 +44,7 @@ module.exports = function (app) {
                         callSid: call.sid,
                     }).then(function (dbResult) {
                         response.json(dbResult)
-                        console.log(dbResult)
+                        //console.log(dbResult)
                     });
                 }
             })
