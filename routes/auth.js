@@ -4,12 +4,12 @@ module.exports = function(app,passport){
     app.get('/signup', authController.signup);
     app.get('/signin', authController.signin);
     app.post('/signup', passport.authenticate('local-signup',  { successRedirect: '/survey',
-                                                        failureRedirect: '/signup'}
+                                                        failureRedirect: '/'}
                                                         ));
     app.get('/survey',isLoggedIn, authController.survey);
     app.get('/logout',authController.logout);
     app.post('/signin', passport.authenticate('local-signin',  { successRedirect: '/survey',
-                                                        failureRedirect: '/signin'}
+                                                        failureRedirect: '/'}
                                                         ));
 
     function isLoggedIn(req, res, next) {
