@@ -9,8 +9,8 @@ exports.signin = function(req,res){
 	res.render('signin'); 
 }
 
-exports.dashboard = function(req,res){
-	res.render('dashboard'); 
+exports.survey = function(req,res){
+	res.render('survey'); 
 }
 
 exports.logout = function(req,res){
